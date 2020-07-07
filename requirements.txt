@@ -2,5 +2,9 @@ numpy
 h5py
 tqdm
 keras
-opencv-python
+opencv-contrib-python==4.1.0.25
+gspread==3.6.0
+colorama==0.4.3
+pyserial==3.4
+oauth2client==4.1.3
 tqdm
