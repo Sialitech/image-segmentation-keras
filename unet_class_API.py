@@ -10,7 +10,7 @@ class Unet:
     def __init__(self, socket, weights_path, colors):
         self.model = model_from_checkpoint_path(weights_path)
         self.socket = socket
-        self.class_colors = colors
+        self.class_colors = list(colors)
         self.inference()
 
     def inference(self):
@@ -19,7 +19,6 @@ class Unet:
             npimg = np.frombuffer(frame_read, dtype=np.uint8)
             frame = cv2.imdecode(npimg, 1)
             start_time = time.time()
-            colors = [(0, 0, 0), (255, 255, 255), (0, 0, 0), (0, 0, 0)]
             prediction = predict(model=self.model, inp=frame, colors=colors)
             fps = 1/(time.time() - start_time)
             print("FPS: {}".format(fps))
