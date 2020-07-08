@@ -7,10 +7,11 @@ from .keras_segmentation.predict import model_from_checkpoint_path, predict
 
 
 class Unet:
-    def __init__(self, socket, weights_path, colors):
+    def __init__(self, socket, weights_path, colors, sender_socket):
         self.model = model_from_checkpoint_path(weights_path)
         self.socket = socket
         self.class_colors = list(colors)
+        self.sender_socket = sender_socket
         self.inference()
 
     def inference(self):
@@ -23,4 +24,4 @@ class Unet:
             fps = 1/(time.time() - start_time)
             print("FPS: {}".format(fps))
             res = json.dumps(prediction.tolist())
-            self.socket.send_string(res)
+            self.sender_socket.send_string(res)
