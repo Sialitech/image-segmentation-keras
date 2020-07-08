@@ -128,7 +128,7 @@ def visualize_segmentation(seg_arr, inp_img=None, n_classes=None,
 def predict(model=None, inp=None, out_fname=None,
             checkpoints_path=None, overlay_img=False,
             class_names=None, show_legends=False, colors=class_colors,
-            prediction_width=None, prediction_height=None):
+            prediction_width=None, prediction_height=None, layer=False):
 
     if model is None and (checkpoints_path is not None):
         model = model_from_checkpoint_path(checkpoints_path)
@@ -163,7 +163,10 @@ def predict(model=None, inp=None, out_fname=None,
     if out_fname is not None:
         cv2.imwrite(out_fname, seg_img)
 
-    return pr
+    if layer:
+        return seg_img
+    else:
+        return pr
 
 
 def predict_multiple(model=None, inps=None, inp_dir=None, out_dir=None,
