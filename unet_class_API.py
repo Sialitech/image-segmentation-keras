@@ -24,4 +24,7 @@ class Unet:
             fps = 1/(time.time() - start_time)
             print("FPS: {}".format(fps))
             res = json.dumps(prediction.tolist())
+            self.socket.send_string(res)
             self.sender_socket.send_string(res)
+            msg = self.sender_socket.recv()
+            print(msg)
